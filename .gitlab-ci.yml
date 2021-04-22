@@ -50,8 +50,18 @@ run-junit-tests:
   stage: test
   script:
     - 'mvn $MAVEN_CLI_OPTS clean test -Dfmt.skip=true'
+  artifacts:
+    when: always
+    reports:
+      junit: target/surefire-reports/TEST-*.xml
 
 deploy-to-test:
   stage: staging
   script:
     - 'echo deploy to the test environment'
+
+deploy-to-prod:
+  stage: deploy
+  when: manual
+  script:
+    - 'echo deploy to the prod environment'
